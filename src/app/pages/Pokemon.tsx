@@ -1,15 +1,15 @@
 import React from 'react';
-import { useParams} from 'react-router-dom';
+//import { useParams} from 'react-router-dom';
 
 interface PokemonProps {
     
 }
 
 const Pokemon: React.FC<PokemonProps> = () => {
-    const { name } = useParams();
+  //  const { name } = useParams();
     return (
         <div>
-            {name}
+           Poke
         </div>
     );
 };
