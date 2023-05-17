@@ -19,6 +19,8 @@ const PokemonList = (props: Props) => {
     useEffect(() => {
         if(searchedName !== ""){
             handlesearchedPokemon(searchedName)
+        } else {
+            setSearchedPokemon(undefined)
         }
     }, [searchedName]);
 
