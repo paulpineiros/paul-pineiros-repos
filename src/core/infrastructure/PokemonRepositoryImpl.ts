@@ -14,7 +14,7 @@ import { PokemonRepository } from "../entities/PokemonRepository";
 export class PokemonRepositoryImpl implements PokemonRepository {
     baseURL = 'https://pokeapi.co/api/v2/';
 
-  async getAllPokemons(limit = 10, offset= 0): Promise<Pokemon[]> {
+  async getAllPokemons(limit = 12, offset= 0): Promise<Pokemon[]> {
 
     const res = await fetch(
         `${this.baseURL}pokemon?limit=${limit}&offset=${offset}`
@@ -75,9 +75,9 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     const baseURL = 'https://pokeapi.co/api/v2/';
 
 		const res = await fetch(`${baseURL}pokemon/${id}`);
-		const data = await res.json();
+		const pokemon = await res.json();
 		
-    return data.map((pokemon: any) => new Pokemon(
+    return  new Pokemon(
       pokemon.id, 
       pokemon.name,
       pokemon.sprites.other.dream_world.front_default,
@@ -89,6 +89,6 @@ export class PokemonRepositoryImpl implements PokemonRepository {
         pokemon.sprites.front_default, 
         pokemon.sprites.front_shiny
       ]
-    ));
+    );
   }
 }

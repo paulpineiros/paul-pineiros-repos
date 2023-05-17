@@ -1,0 +1,21 @@
+.contentDetail{
+    background-color: rgb(185, 134, 226);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 5px;
+	padding-top: 50px;
+    margin: 0 50px;
+}
+
+.info{
+    margin-bottom: 15px;
+}
+.desc{
+    color: #333;
+	
+}
+.title{
+    color: #333;
+    font-weight: bold;
+}

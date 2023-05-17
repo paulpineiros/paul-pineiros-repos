@@ -15,15 +15,15 @@ export const PokemonProvider = ({ children }) => {
 	const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(true);
 
-    const getAllPokemons = async (limit = 10) => {
+    const getAllPokemons = async (limit = 12) => {
         const result = await pokemonService.getAllPokemons(limit, offset);
-        setAllPokemons([...allPokemons, ...result]);
+        setAllPokemons([...result]);
 		setLoading(false);
     }
 
     const getGlobalPokemons = async () => {
         const result = await pokemonService.getGlobalPokemons();
-        setGlobalPokemons([...globalPokemons, ...result]);
+        setGlobalPokemons([ ...result]);
 		setLoading(false);
     }
 
@@ -41,7 +41,7 @@ export const PokemonProvider = ({ children }) => {
 	}, []);
 
     const onClickLoadMore = () => {
-		setOffset(offset + 10);
+		setOffset(offset + 12);
 	};
 
     return (

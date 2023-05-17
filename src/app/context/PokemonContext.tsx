@@ -4,7 +4,7 @@ import { Pokemon } from "../../core/entities/Pokemon";
 export type PokemonContextType = {
     allPokemons: Pokemon[];
     globalPokemons: Pokemon[];
-    getPokemonByID: (id: number) => void;
+    getPokemonByID: (id: number) => Promise<Pokemon>;
     onClickLoadMore:() => void;
     loading: Boolean
   };
