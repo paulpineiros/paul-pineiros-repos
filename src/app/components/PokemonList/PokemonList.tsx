@@ -12,8 +12,12 @@ const PokemonList = (props: Props) => {
     const [searchedPokemon, setSearchedPokemon] = useState<Pokemon>()
 
     const handlesearchedPokemon = async (name:string)=>{
-        const result = await getPokemonByName(name);
-        setSearchedPokemon(result);
+        try {
+            const result = await getPokemonByName(name);
+            setSearchedPokemon(result);
+        } catch (error) {
+            alert("No se encontraron resultados")
+        }
     }
 
     useEffect(() => {
@@ -24,6 +28,7 @@ const PokemonList = (props: Props) => {
         }
     }, [searchedName]);
 
+    //SHOW SEARCHED POKEMON
     if(searchedPokemon){
         return (
             <div className='list-pokemon'>
@@ -32,6 +37,8 @@ const PokemonList = (props: Props) => {
                 </div>
             </div>)
     }
+
+    // SHOW ALL POKEMONS
     return (
         <div className='list-pokemon'>
             {
