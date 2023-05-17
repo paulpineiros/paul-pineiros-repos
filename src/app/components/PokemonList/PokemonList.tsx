@@ -24,6 +24,7 @@ const PokemonList = (props: Props) => {
         }
     }, [searchedName]);
 
+    //SHOW SEARCHED POKEMON
     if(searchedPokemon){
         return (
             <div className='list-pokemon'>
@@ -32,6 +33,8 @@ const PokemonList = (props: Props) => {
                 </div>
             </div>)
     }
+
+    // SHOW ALL POKEMONS
     return (
         <div className='list-pokemon'>
             {
