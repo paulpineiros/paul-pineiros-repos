@@ -19,10 +19,10 @@ export class Pokemon {
     ) {
       this.id = id;
       this.name = name;
-      this.imageSrc = imageSrc,
-      this.weight = weight,
-      this.types = types,
-      this.moves = moves,
-      this.sprites = sprites
+      this.imageSrc = imageSrc;
+      this.weight = weight;
+      this.types = types;
+      this.moves = moves;
+      this.sprites = sprites;
     }
   }

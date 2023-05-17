@@ -23,7 +23,7 @@ const Pokemons: React.FC<PokemonsProps> = () => {
     }, []);
     return (
         <>
-        <Header/>
+       
         <main>
             <h1>cne</h1>
         </main>

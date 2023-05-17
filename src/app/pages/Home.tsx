@@ -6,16 +6,20 @@ import { useState } from 'react';
 
 const Home = () => {
     const [selectedId, setSelectedId] = useState<number|undefined>()
+    const [searchedName, setSearchedName] = useState<string>('')
     const handleSelectedId = (id: number)=>{
         setSelectedId(id);
+    }
+    const handleSearchedName = (name: string)=>{
+        setSearchedName(name);
     }
     
     return (
         <>
-        <Header/>
+        <Header handleSearchedName={handleSearchedName}/>
         <div className='container'>
             <span className='main'>
-                <PokemonList handleSelectId={handleSelectedId}/>
+                <PokemonList searchedName={searchedName} handleSelectId={handleSelectedId}/>
             </span>
             <span className='side'>
                 <PokemonDetails selectedId={selectedId} />

@@ -43,20 +43,13 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     ));
   }
 
-  async getGlobalPokemons(): Promise<Pokemon[]> {
-    const res = await fetch(
-        `${this.baseURL}pokemon?limit=100000&offset=0`
-    );
-    const data = await res.json();
+  async getPokemonByID(id: number): Promise<Pokemon> {
+    const baseURL = 'https://pokeapi.co/api/v2/';
 
-    const promises = data.results.map(async (pokemon:any) => {
-        const res = await fetch(pokemon.url);
-        const data = await res.json();
-        return data;
-    });
-    const results = await Promise.all(promises);
-    
-    return results.map((pokemon: any) => new Pokemon(
+		const res = await fetch(`${baseURL}pokemon/${id}`);
+		const pokemon = await res.json();
+		
+    return  new Pokemon(
       pokemon.id, 
       pokemon.name,
       pokemon.sprites.other.dream_world.front_default,
@@ -68,13 +61,13 @@ export class PokemonRepositoryImpl implements PokemonRepository {
         pokemon.sprites.front_default, 
         pokemon.sprites.front_shiny
       ]
-    ));
+    );
   }
 
-  async getPokemonByID(id: number): Promise<Pokemon> {
+  async getPokemonByName(name: string): Promise<Pokemon> {
     const baseURL = 'https://pokeapi.co/api/v2/';
 
-		const res = await fetch(`${baseURL}pokemon/${id}`);
+		const res = await fetch(`${baseURL}pokemon/${name}`);
 		const pokemon = await res.json();
 		
     return  new Pokemon(

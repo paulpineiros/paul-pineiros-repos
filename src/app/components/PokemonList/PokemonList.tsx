@@ -1,12 +1,35 @@
-import {useContext} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './PokemonList.css';
 import { Props } from './PokemonList.type';
 import { PokemonContext, PokemonContextType } from '../../context/PokemonContext';
 import CardPokemon from '../CardPokemon/CardPokemon';
+import { Pokemon } from '../../../core/entities/Pokemon';
 
 const PokemonList = (props: Props) => {
-    const { handleSelectId} = props
-    const { allPokemons } = useContext(PokemonContext) as PokemonContextType;
+    const { handleSelectId, searchedName} = props
+    const { allPokemons, getPokemonByName } = useContext(PokemonContext) as PokemonContextType;
+    
+    const [searchedPokemon, setSearchedPokemon] = useState<Pokemon>()
+
+    const handlesearchedPokemon = async (name:string)=>{
+        const result = await getPokemonByName(name);
+        setSearchedPokemon(result);
+    }
+
+    useEffect(() => {
+        if(searchedName !== ""){
+            handlesearchedPokemon(searchedName)
+        }
+    }, [searchedName]);
+
+    if(searchedPokemon){
+        return (
+            <div className='list-pokemon'>
+                <div onClick={()=>handleSelectId(searchedPokemon.id)} key={searchedPokemon.id}>
+                    <CardPokemon pokemon={searchedPokemon} />
+                </div>
+            </div>)
+    }
     return (
         <div className='list-pokemon'>
             {

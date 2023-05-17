@@ -11,7 +11,6 @@ export const PokemonProvider = ({ children }) => {
     const pokemonService = new PokemonServiceImpl(pokemonRepo);
 
     const [allPokemons, setAllPokemons] = useState<Pokemon[]>([]);
-	const [globalPokemons, setGlobalPokemons] = useState<Pokemon[]>([]);
 	const [offset, setOffset] = useState(0);
     const [loading, setLoading] = useState(true);
 
@@ -21,14 +20,13 @@ export const PokemonProvider = ({ children }) => {
 		setLoading(false);
     }
 
-    const getGlobalPokemons = async () => {
-        const result = await pokemonService.getGlobalPokemons();
-        setGlobalPokemons([ ...result]);
-		setLoading(false);
-    }
-
     const getPokemonByID = async (id: number) => {
 		const result = await pokemonService.getPokemonByID(id);
+		return result;
+	};
+
+    const getPokemonByName = async (name: string) => {
+		const result = await pokemonService.getPokemonByName(name);
 		return result;
 	};
 
@@ -36,21 +34,22 @@ export const PokemonProvider = ({ children }) => {
 		getAllPokemons();
 	}, [offset]);
 
-	useEffect(() => {
-		//getGlobalPokemons();
-	}, []);
-
     const onClickLoadMore = () => {
 		setOffset(offset + 12);
+	};
+
+    const onClickLoadLess = () => {
+		setOffset(offset - 12);
 	};
 
     return (
 		<PokemonContext.Provider
             value={{
                 allPokemons,
-				globalPokemons,
 				getPokemonByID,
+                getPokemonByName,
                 onClickLoadMore,
+                onClickLoadLess,
                 loading
             }}
         >

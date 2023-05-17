@@ -3,8 +3,8 @@ import { PokemonRepository } from "../entities/PokemonRepository";
 
 export interface ItemService {
     getAllPokemons(limit:number, offset?:number): Promise<Pokemon[]>;
-    getGlobalPokemons(): Promise<Pokemon[]>;
     getPokemonByID(id:number): Promise<Pokemon>;
+    getPokemonByName(name:string): Promise<Pokemon>;
 }
 
 export class PokemonServiceImpl implements ItemService {
@@ -18,11 +18,11 @@ export class PokemonServiceImpl implements ItemService {
     return this.pokemonRepo.getAllPokemons(limit, offset);
   }
 
-  async getGlobalPokemons(): Promise<Pokemon[]> {
-    return this.pokemonRepo.getGlobalPokemons();
-  }
-
   async getPokemonByID(id: number): Promise<Pokemon> {
     return this.pokemonRepo.getPokemonByID(id);
+  }
+
+  async getPokemonByName(name: string): Promise<Pokemon> {
+    return this.pokemonRepo.getPokemonByName(name);
   }
 }
