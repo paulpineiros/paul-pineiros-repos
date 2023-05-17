@@ -4,7 +4,8 @@ import { PokemonServiceImpl } from "../../core/usecases/PokemonService";
 import { PokemonRepositoryImpl } from "../../core/infrastructure/PokemonRepositoryImpl";
 import { Pokemon } from "../../core/entities/Pokemon";
 
-export const PokemonProvider = (children:any) => {
+ // @ts-ignore: Unreachable code error
+export const PokemonProvider = ({ children }) => {
 
     const pokemonRepo = new PokemonRepositoryImpl();
     const pokemonService = new PokemonServiceImpl(pokemonRepo);
@@ -36,7 +37,7 @@ export const PokemonProvider = (children:any) => {
 	}, [offset]);
 
 	useEffect(() => {
-		getGlobalPokemons();
+		//getGlobalPokemons();
 	}, []);
 
     const onClickLoadMore = () => {

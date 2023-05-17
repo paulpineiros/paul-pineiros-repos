@@ -1,11 +1,15 @@
 import { Pokemon } from "../entities/Pokemon";
 import { PokemonRepository } from "../entities/PokemonRepository";
 
-class PokemonDTO {
+/*class PokemonDTO {
   id: number = 0;
   name: string = "";
   imageSrc: string = "";
-}
+  weight: number = 0;
+  types: string[] = [];
+  sprites: string[] = [];
+  moves: string[] = []
+}*/
 
 export class PokemonRepositoryImpl implements PokemonRepository {
     baseURL = 'https://pokeapi.co/api/v2/';
@@ -24,9 +28,19 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     });
     const results = await Promise.all(promises);
     
-    //const res = await fetch(this.jsonUrl);
-    //const jsonData = await res.json();
-    return results.map((pokemon: PokemonDTO) => new Pokemon(pokemon.id, pokemon.name, pokemon.imageSrc));
+    return results.map((pokemon: any) => new Pokemon(
+      pokemon.id, 
+      pokemon.name,
+      pokemon.sprites.other.dream_world.front_default,
+      pokemon.weight,
+      pokemon.types.map((type:any) =>type.type.name),
+      pokemon.moves.map((move:any) =>move.move.name),
+      [ pokemon.sprites.back_default,
+        pokemon.sprites.back_shiny,
+        pokemon.sprites.front_default, 
+        pokemon.sprites.front_shiny
+      ]
+    ));
   }
 
   async getGlobalPokemons(): Promise<Pokemon[]> {
@@ -42,9 +56,19 @@ export class PokemonRepositoryImpl implements PokemonRepository {
     });
     const results = await Promise.all(promises);
     
-    //const res = await fetch(this.jsonUrl);
-    //const jsonData = await res.json();
-    return results.map((pokemon: PokemonDTO) => new Pokemon(pokemon.id, pokemon.name, pokemon.imageSrc));
+    return results.map((pokemon: any) => new Pokemon(
+      pokemon.id, 
+      pokemon.name,
+      pokemon.sprites.other.dream_world.front_default,
+      pokemon.weight,
+      pokemon.types.map((type:any) =>type.type.name),
+      pokemon.moves.map((move:any) =>move.move.name),
+      [ pokemon.sprites.back_default,
+        pokemon.sprites.back_shiny,
+        pokemon.sprites.front_default, 
+        pokemon.sprites.front_shiny
+      ]
+    ));
   }
 
   async getPokemonByID(id: number): Promise<Pokemon> {
@@ -52,6 +76,19 @@ export class PokemonRepositoryImpl implements PokemonRepository {
 
 		const res = await fetch(`${baseURL}pokemon/${id}`);
 		const data = await res.json();
-		return new Pokemon(data.id, data.name, data.imageSrc);
+		
+    return data.map((pokemon: any) => new Pokemon(
+      pokemon.id, 
+      pokemon.name,
+      pokemon.sprites.other.dream_world.front_default,
+      pokemon.weight,
+      pokemon.types.map((type:any) =>type.type.name),
+      pokemon.moves.map((move:any) =>move.move.name),
+      [ pokemon.sprites.back_default,
+        pokemon.sprites.back_shiny,
+        pokemon.sprites.front_default, 
+        pokemon.sprites.front_shiny
+      ]
+    ));
   }
 }
